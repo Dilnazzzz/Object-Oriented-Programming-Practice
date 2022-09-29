@@ -1,0 +1,21 @@
+# What is the difference between an _iterator_ and an _iterable_?
+
+class MyIterator:  # Use only once per for-loop
+
+    def __init__(self, stop_after):
+        self.count = 0
+        self.stop_after = stop_after
+
+    def __next__(self):
+        self.count += 1
+        if self.count > self.stop_after:
+            raise StopIteration
+        return self.count
+
+class MyIterable:  # Use it = MyIterable() in multiple for-loops
+    
+    def __init__(self, stop_after=10):
+        self.stop_after = stop_after
+        
+    def __iter__(self):
+        return MyIterator(self.stop_after)
